@@ -1,13 +1,16 @@
 package main
 
-import "github.com/kataras/iris"
+import (
+	"net/http"
+	
+	"github.com/gorilla/websocket"
+	"github.com/labstack/echo"
+)
 
 func main() {
-	app := iris.Default()
-
-	app.Get("/", func (ctx iris.Context) {
-		ctx.HTML("Hello World")
+	e := echo.New()
+	e.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Hello, World!")
 	})
-
-	app.Run(iris.Addr(":8080"))
+	e.Logger.Fatal(e.Start(":8080"))
 }
